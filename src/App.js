@@ -1,6 +1,7 @@
 import "antd/dist/reset.css";
 import { Layout, Menu, theme } from "antd";
 import HomePage from "./Components/HomePage";
+import HotelLogoSvg from "./assets/hotel-82-logo-white.js";
 
 const { Header, Content, Footer } = Layout;
 
@@ -12,10 +13,12 @@ function App() {
     <>
       <Layout className="layout">
         <Header>
-          <div className="logo" />
+          <div className="logo">
+            <HotelLogoSvg />
+          </div>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]} />
         </Header>
-        <Content style={{ padding: "0 50px" }}>
+        <Content>
           <div
             className="site-layout-content"
             style={{ background: colorBgContainer }}
