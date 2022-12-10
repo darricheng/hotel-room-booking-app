@@ -1,5 +1,7 @@
 import "antd/dist/reset.css";
 import { Layout, Menu, theme } from "antd";
+import HomePage from "./Components/HomePage";
+
 const { Header, Content, Footer } = Layout;
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
             className="site-layout-content"
             style={{ background: colorBgContainer }}
           >
-            Content
+            <HomePage />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
