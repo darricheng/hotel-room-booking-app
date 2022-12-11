@@ -1,8 +1,12 @@
-export default function HotelLogoSvg() {
+export default function HotelLogoSvg(props) {
+  const sizeMultiplier = props.sizeMultiplier || 1;
+  const width = 58 * sizeMultiplier;
+  const height = 11 * sizeMultiplier;
+
   return (
     <svg
-      width="58"
-      height="11"
+      width={width}
+      height={height}
       viewBox="0 0 58 11"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
