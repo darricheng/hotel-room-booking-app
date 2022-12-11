@@ -14,7 +14,7 @@ function App() {
       <Layout className="layout">
         <Header>
           <div className="logo">
-            <HotelLogoSvg />
+            <HotelLogoSvg sizeMultiplier={1.5} />
           </div>
           <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]} />
         </Header>
