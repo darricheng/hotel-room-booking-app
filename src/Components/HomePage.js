@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 // Asset imports
 import homePageBanner from "../assets/hotel-home-page-banner.jpg";
 import { SearchOutlined } from "@ant-design/icons";
-import HotelLogoSvg from "../assets/hotel-82-logo-white.js";
+import HotelLogoSvg from "./HotelLogoSvg.js";
 
 // Necessary import inits
 dayjs().format();

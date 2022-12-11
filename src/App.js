@@ -1,7 +1,7 @@
 import "antd/dist/reset.css";
 import { Layout, Menu, theme } from "antd";
 import HomePage from "./Components/HomePage";
-import HotelLogoSvg from "./assets/hotel-82-logo-white.js";
+import HotelLogoSvg from "./Components/HotelLogoSvg.js";
 
 const { Header, Content, Footer } = Layout;
 
