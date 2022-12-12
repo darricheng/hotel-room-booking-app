@@ -8,10 +8,12 @@ import { useContext } from "react";
 
 // Firebase imports
 // See https://firebase.google.com/docs/auth/web/start#sign_up_new_users
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { AuthContext } from "../firebase/AuthContext";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+// Import the auth instance from firebaseConfig.js
+import { auth } from "../firebase/firebaseConfig";
 
-const auth = getAuth();
+// Import the AuthContext so that we can check if the user is logged in
+import { AuthContext } from "../firebase/AuthContext";
 
 const signUpPageStyle = {
   display: "flex",
@@ -22,12 +24,15 @@ const signUpPageStyle = {
 };
 
 export default function SignUpPage() {
+  // Check if the user is logged in
   const { user } = useContext(AuthContext);
   console.log(user);
 
+  // Handle the form submission
   const onFinish = (values) => {
     console.log("Success:", values);
 
+    // Create the new user with the email and password
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         // Signed in
@@ -43,12 +48,14 @@ export default function SignUpPage() {
         );
       });
   };
+  // Handle the form submission failure
   const onFinishFailed = (errorInfo) => {
     // Log the error info to the console
     console.log("Failed:", errorInfo);
   };
   return (
     <div style={signUpPageStyle}>
+      {/* If the user is already logged in, don't show the form (they aren't supposed to be at this page anyway!) */}
       {user ? (
         <Typography.Title>You're already logged in</Typography.Title>
       ) : (
