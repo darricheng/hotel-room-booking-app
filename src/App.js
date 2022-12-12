@@ -1,7 +1,14 @@
+// Ant design imports
 import "antd/dist/reset.css";
 import { Layout, Menu, theme } from "antd";
-import HomePage from "./Components/HomePage";
-import HotelLogoSvg from "./Components/HotelLogoSvg.js";
+
+// module imports
+import { Routes, Route } from "react-router-dom";
+
+// Component imports
+import HomePage from "./Pages/HomePage";
+import LoginPage from "./Pages/LoginPage";
+import HotelLogoSvg from "./Components/HotelLogoSvg";
 
 const { Header, Content, Footer } = Layout;
 
@@ -23,7 +30,10 @@ function App() {
             className="site-layout-content"
             style={{ background: colorBgContainer }}
           >
-            <HomePage />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+            </Routes>
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
