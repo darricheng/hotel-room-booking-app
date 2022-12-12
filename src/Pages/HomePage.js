@@ -29,7 +29,8 @@ const mainHotelLogoStyle = {
   top: "4vw",
   left: "0",
   right: "0",
-  margin: "0 auto",
+  display: "flex",
+  justifyContent: "center",
 };
 const dateRangeStyle = {
   position: "absolute",
