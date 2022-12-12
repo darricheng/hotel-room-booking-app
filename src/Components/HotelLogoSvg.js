@@ -3,13 +3,8 @@ export default function HotelLogoSvg(props) {
   const width = 58 * sizeMultiplier;
   const height = 11 * sizeMultiplier;
 
-  const logoStyle = {
-    width: `${width + 12}px`,
-    height: `${height + 8}px`,
-  };
-
   return (
-    <div className="logo" style={logoStyle}>
+    <>
       <svg
         width={width}
         height={height}
@@ -22,6 +17,6 @@ export default function HotelLogoSvg(props) {
           fill="white"
         />
       </svg>
-    </div>
+    </>
   );
 }
