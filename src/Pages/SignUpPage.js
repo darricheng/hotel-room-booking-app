@@ -37,20 +37,23 @@ const callCreateUserAPI = async (firebaseData, userInputData) => {
     name,
     email,
     firebase_id: uid,
-    contact_number: contactNumber,
+    contact_number: Number(contactNumber), // Convert to number as the API expects a number type (the form input is a string)
     gender,
     address,
     lastLogin: new Date(),
   };
 
   try {
-    const response = await fetch(process.env.API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataObj),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "/users/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataObj),
+      }
+    );
     const data = await response.json();
     console.log(data);
     return data;
@@ -60,9 +63,9 @@ const callCreateUserAPI = async (firebaseData, userInputData) => {
 };
 
 export default function SignUpPage() {
+  console.log(process.env.REACT_APP_API_URL);
   // Check if the user is logged in
   const { user } = useContext(AuthContext);
-  console.log(user);
 
   // Handle the form submission
   const onFinish = async (values) => {
@@ -75,8 +78,9 @@ export default function SignUpPage() {
         values.email,
         values.password
       );
+      console.log(userCredential);
       // Call the createUser API endpoint to create the userCredential in the database
-      const user = await callCreateUserAPI(values);
+      const user = await callCreateUserAPI(userCredential.user, values);
       console.log("User created successfully: " + user);
       // TODO: Redirect to the home page
     } catch (error) {
@@ -89,6 +93,7 @@ export default function SignUpPage() {
   const onFinishFailed = (errorInfo) => {
     // Log the error info to the console
     console.log("Failed:", errorInfo);
+    console.log(typeof errorInfo.values.contactNumber);
   };
   return (
     <div style={signUpPageStyle}>
@@ -163,7 +168,7 @@ export default function SignUpPage() {
             name="contactNumber"
             rules={[
               {
-                type: "number",
+                type: "string",
                 required: true,
                 message: "Please input your phone number",
               },
