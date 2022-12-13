@@ -78,7 +78,7 @@ function App() {
             key: "Login",
           },
           {
-            label: <Link to="/sign-up">Sign Up</Link>,
+            label: <Link to="/signup">Sign Up</Link>,
             key: "Sign Up",
           },
         ]
@@ -106,7 +106,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/sign-up" element={<SignUpPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
             </Routes>
           </div>
         </Content>

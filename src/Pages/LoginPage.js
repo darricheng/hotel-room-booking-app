@@ -5,6 +5,7 @@ import { Button, Checkbox, Form, Input, Typography } from "antd";
 
 // Module imports
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 // Firebase imports
 // See https://firebase.google.com/docs/auth/web/start#sign_up_new_users
@@ -55,70 +56,75 @@ export default function LoginPage() {
       {user ? (
         <Typography.Paragraph>You are already logged in!</Typography.Paragraph>
       ) : (
-        <Form
-          name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                type: "email",
-                required: true,
-                message: "Please input your email",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
+        <>
+          <Form
+            name="basic"
+            labelCol={{
+              span: 8,
+            }}
             wrapperCol={{
-              offset: 8,
               span: 16,
             }}
-          >
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
+            initialValues={{
+              remember: true,
             }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
           >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  type: "email",
+                  required: true,
+                  message: "Please input your email",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password",
+                },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+
+            <Form.Item
+              name="remember"
+              valuePropName="checked"
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+            >
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <Form.Item
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+            >
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+          <Typography.Paragraph>
+            Don't have an account yet? <Link to="/signup">Sign up here!</Link>
+          </Typography.Paragraph>
+        </>
       )}
     </div>
   );
