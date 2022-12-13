@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 // Asset imports
 import homePageBanner from "../assets/hotel-home-page-banner.jpg";
 import { SearchOutlined } from "@ant-design/icons";
-import HotelLogoSvg from "./HotelLogoSvg.js";
+import HotelLogoSvg from "../Components/HotelLogoSvg";
 
 // Necessary import inits
 dayjs().format();
@@ -29,7 +29,8 @@ const mainHotelLogoStyle = {
   top: "4vw",
   left: "0",
   right: "0",
-  margin: "0 auto",
+  display: "flex",
+  justifyContent: "center",
 };
 const dateRangeStyle = {
   position: "absolute",
