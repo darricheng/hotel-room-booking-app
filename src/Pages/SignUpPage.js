@@ -1,7 +1,7 @@
 // A signup page where users can create an account by entering their email and password.
 
 // Ant Design imports
-import { Button, Checkbox, Form, Input, Typography } from "antd";
+import { Select, Button, Checkbox, Form, Input, Typography } from "antd";
 
 // Module imports
 import { useContext } from "react";
@@ -15,6 +15,9 @@ import { auth } from "../firebase/firebaseConfig";
 // Import the AuthContext so that we can check if the user is logged in
 import { AuthContext } from "../firebase/AuthContext";
 
+// Get the Option component from the Select component
+const { Option } = Select;
+
 const signUpPageStyle = {
   display: "flex",
   flexDirection: "column",
@@ -23,30 +26,64 @@ const signUpPageStyle = {
   minHeight: "100vh",
 };
 
+const callCreateUserAPI = async (firebaseData, userInputData) => {
+  // Extract the uid and email from the firebaseData object
+  const { uid, email } = firebaseData;
+  // Extract all other necessary details from the form input
+  const { name, gender, contactNumber, address } = userInputData;
+
+  // Create the data object to send to the API
+  const dataObj = {
+    name,
+    email,
+    firebase_id: uid,
+    contact_number: contactNumber,
+    gender,
+    address,
+    lastLogin: new Date(),
+  };
+
+  try {
+    const response = await fetch(process.env.API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataObj),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default function SignUpPage() {
   // Check if the user is logged in
   const { user } = useContext(AuthContext);
   console.log(user);
 
   // Handle the form submission
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     console.log("Success:", values);
 
-    // Create the new user with the email and password
-    createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // TODO: Redirect to the home page
-        console.log("User created successfully");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error(
-          `Error code: ${errorCode}, Error message: ${errorMessage}`
-        );
-      });
+    try {
+      // Create the new user with the email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      // Call the createUser API endpoint to create the userCredential in the database
+      const user = await callCreateUserAPI(values);
+      console.log("User created successfully: " + user);
+      // TODO: Redirect to the home page
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(`Error code: ${errorCode}, Error message: ${errorMessage}`);
+    }
   };
   // Handle the form submission failure
   const onFinishFailed = (errorInfo) => {
@@ -92,6 +129,64 @@ export default function SignUpPage() {
           </Form.Item>
 
           <Form.Item
+            label="Name"
+            name="name"
+            rules={[
+              {
+                type: "string",
+                required: true,
+                message: "Please input your name",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Gender"
+            name="gender"
+            rules={[
+              {
+                required: true,
+                message: "Please select your gender",
+              },
+            ]}
+          >
+            <Select placeholder="Select your gender">
+              <Option value="male">Male</Option>
+              <Option value="female">Female</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            label="Phone"
+            name="contactNumber"
+            rules={[
+              {
+                type: "number",
+                required: true,
+                message: "Please input your phone number",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Address"
+            name="address"
+            rules={[
+              {
+                type: "string",
+                required: true,
+                message: "Please input your address",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
             label="Password"
             name="password"
             rules={[
@@ -102,17 +197,6 @@ export default function SignUpPage() {
             ]}
           >
             <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item
