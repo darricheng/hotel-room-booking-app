@@ -18,6 +18,7 @@ import { useContext, useState } from "react";
 import { signOut } from "firebase/auth";
 import { AuthContext } from "./firebase/AuthContext";
 import { auth } from "./firebase/firebaseConfig";
+import RoomListingPage from "./Pages/RoomListingPage";
 
 // Ant Design Layout Components
 const { Header, Content, Footer } = Layout;
@@ -107,6 +108,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/rooms" element={<RoomListingPage />} />
             </Routes>
           </div>
         </Content>
