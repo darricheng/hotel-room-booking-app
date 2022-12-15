@@ -1,5 +1,4 @@
 // Module imports
-import { useState, useEffect } from "react";
 import { DatePicker, Button, Select, Form } from "antd";
 import dayjs from "dayjs";
 
@@ -95,14 +94,14 @@ export default function HomePage(props) {
 
           <Form.Item name="roomType">
             <Select
-              defaultValue="Single Room"
+              defaultValue="single-room"
               size="large"
               onChange={handleRoomTypeChange}
             >
-              <Option value="Single Room">Single Room</Option>
-              <Option value="Double Room">Double Room</Option>
-              <Option value="Deluxe Room">Deluxe Room</Option>
-              <Option value="Suite Room">Suite Room</Option>
+              <Option value="single-room">Single Room</Option>
+              <Option value="double-room">Double Room</Option>
+              <Option value="deluxe-room">Deluxe Room</Option>
+              <Option value="suite-room">Suite Room</Option>
             </Select>
           </Form.Item>
 
