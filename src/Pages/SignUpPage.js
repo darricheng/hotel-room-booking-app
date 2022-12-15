@@ -1,7 +1,7 @@
 // A signup page where users can create an account by entering their email and password.
 
 // Ant Design imports
-import { Select, Button, Checkbox, Form, Input, Typography } from "antd";
+import { Select, Button, Form, Input, Typography } from "antd";
 
 // Module imports
 import { useContext } from "react";
