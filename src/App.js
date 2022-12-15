@@ -93,11 +93,12 @@ function App() {
   // State management for the room search functionality
   // Initialise a default date range with the current date and the next day.
   const defaultRoomSearchSetting = {
-    startDate: dayjs().toDate(),
-    endDate: dayjs().add(1, "day").toDate(),
+    // Use dayjs to convert the date to something that the Range Picker can understand
+    startDate: dayjs(),
+    endDate: dayjs().add(1, "day"),
     roomType: "single-room",
   };
-  const [roomSearchSetting, setroomSearchSetting] = useState(
+  const [roomSearchSetting, setRoomSearchSetting] = useState(
     defaultRoomSearchSetting
   );
 
@@ -105,6 +106,7 @@ function App() {
   // Redirects the user to the room type details page based on the chosen room type
   const navigate = useNavigate();
   const handleRoomSearch = () => {
+    console.log(roomSearchSetting);
     navigate(`/rooms/${roomSearchSetting.roomType}`);
   };
 
@@ -132,7 +134,8 @@ function App() {
                 path="/"
                 element={
                   <HomePage
-                    setroomSearchSetting={setroomSearchSetting}
+                    roomSearchSetting={roomSearchSetting}
+                    setRoomSearchSetting={setRoomSearchSetting}
                     handleRoomSearch={handleRoomSearch}
                   />
                 }
@@ -141,7 +144,10 @@ function App() {
               <Route
                 path="/rooms/:roomType"
                 element={
-                  <RoomTypeDetails roomSearchSetting={roomSearchSetting} />
+                  <RoomTypeDetails
+                    roomSearchSetting={roomSearchSetting}
+                    setRoomSearchSetting={setRoomSearchSetting}
+                  />
                 }
               />
               {/* User management routes */}

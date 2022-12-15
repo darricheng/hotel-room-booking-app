@@ -44,20 +44,20 @@ const roomSearchFormStyle = {
 };
 
 export default function HomePage(props) {
-  const { setroomSearchSetting, handleRoomSearch } = props;
+  const { roomSearchSetting, setRoomSearchSetting, handleRoomSearch } = props;
   // Function to handle date change by updating the date range state.
   const handleDateChange = (dates, dateStrings) => {
-    setroomSearchSetting((prev) => {
+    setRoomSearchSetting((prev) => {
       return {
         ...prev,
-        startDate: dates[0].toDate(),
-        endDate: dates[1].toDate(),
+        startDate: dates[0],
+        endDate: dates[1],
       };
     });
   };
   // Function to handle room type change by updating the room type state.
   const handleRoomTypeChange = (value) => {
-    setroomSearchSetting((prev) => {
+    setRoomSearchSetting((prev) => {
       return {
         ...prev,
         roomType: value,
@@ -82,22 +82,21 @@ export default function HomePage(props) {
           style={roomSearchFormStyle}
           onFinish={handleRoomSearch}
           onFinishFailed={onFinishFailed}
+          initialValues={{
+            dateRange: [roomSearchSetting.startDate, roomSearchSetting.endDate],
+            roomType: roomSearchSetting.roomType,
+          }}
         >
           <Form.Item name="dateRange">
             <RangePicker
               size="large"
               allowClear={false} // Disable the clear button
-              defaultValue={[dayjs(), dayjs().add(1, "day")]}
               onChange={handleDateChange}
             />
           </Form.Item>
 
           <Form.Item name="roomType">
-            <Select
-              defaultValue="single-room"
-              size="large"
-              onChange={handleRoomTypeChange}
-            >
+            <Select size="large" onChange={handleRoomTypeChange}>
               <Option value="single-room">Single Room</Option>
               <Option value="double-room">Double Room</Option>
               <Option value="deluxe-room">Deluxe Room</Option>

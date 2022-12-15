@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
+// TODO: use dayjs().toDate() to convert the date strings to date objects when calling the book room api
+
 export default function RoomTypeDetails() {
   // State to store the available rooms returned from the api call
   const [rooms, setRooms] = useState([]);
