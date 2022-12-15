@@ -3,17 +3,18 @@ import "antd/dist/reset.css";
 import { Layout, Menu } from "antd";
 
 // module imports
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
 // Component imports
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
+import RoomTypeDetails from "./Pages/RoomTypeDetails";
 import HotelLogoSvg from "./Components/HotelLogoSvg";
 
 // React imports
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 // Authentication imports
 import { signOut } from "firebase/auth";
@@ -94,15 +95,17 @@ function App() {
   const defaultRoomSearchSetting = {
     startDate: dayjs().toDate(),
     endDate: dayjs().add(1, "day").toDate(),
-    roomType: "Single Room",
+    roomType: "single-room",
   };
   const [roomSearchSetting, setroomSearchSetting] = useState(
     defaultRoomSearchSetting
   );
 
   // Function to handle the room search functionality
+  // Redirects the user to the room type details page based on the chosen room type
+  const navigate = useNavigate();
   const handleRoomSearch = () => {
-    console.log(`handleRoomSearch:`, roomSearchSetting);
+    navigate(`/rooms/${roomSearchSetting.roomType}`);
   };
 
   return (
@@ -124,6 +127,7 @@ function App() {
         <Content>
           <div className="site-layout-content">
             <Routes>
+              {/* Home page route */}
               <Route
                 path="/"
                 element={
@@ -133,6 +137,14 @@ function App() {
                   />
                 }
               />
+              {/* Room type details route */}
+              <Route
+                path="/rooms/:roomType"
+                element={
+                  <RoomTypeDetails roomSearchSetting={roomSearchSetting} />
+                }
+              />
+              {/* User management routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
             </Routes>
