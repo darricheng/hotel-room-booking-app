@@ -51,8 +51,8 @@ export default function HomePage(props) {
     setroomSearchSetting((prev) => {
       return {
         ...prev,
-        startDate: dates[0] ? dates[0].toDate() : null,
-        endDate: dates[1] ? dates[1].toDate() : null,
+        startDate: dates[0].toDate(),
+        endDate: dates[1].toDate(),
       };
     });
   };
