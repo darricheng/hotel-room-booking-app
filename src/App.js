@@ -4,6 +4,7 @@ import { Layout, Menu } from "antd";
 
 // module imports
 import { Routes, Route, Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 // Component imports
 import HomePage from "./Pages/HomePage";
@@ -12,7 +13,7 @@ import SignUpPage from "./Pages/SignUpPage";
 import HotelLogoSvg from "./Components/HotelLogoSvg";
 
 // React imports
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Authentication imports
 import { signOut } from "firebase/auth";
@@ -21,6 +22,9 @@ import { auth } from "./firebase/firebaseConfig";
 
 // Ant Design Layout Components
 const { Header, Content, Footer } = Layout;
+
+// dayjs init
+dayjs().format();
 
 function App() {
   // Check if the user is logged in
@@ -85,6 +89,22 @@ function App() {
       : []),
   ];
 
+  // State management for the room search functionality
+  // Initialise a default date range with the current date and the next day.
+  const defaultRoomSearchSetting = {
+    startDate: dayjs().toDate(),
+    endDate: dayjs().add(1, "day").toDate(),
+    roomType: "Single Room",
+  };
+  const [roomSearchSetting, setroomSearchSetting] = useState(
+    defaultRoomSearchSetting
+  );
+
+  // Function to handle the room search functionality
+  const handleRoomSearch = () => {
+    console.log(`handleRoomSearch:`, roomSearchSetting);
+  };
+
   return (
     <>
       <Layout className="layout">
@@ -104,7 +124,15 @@ function App() {
         <Content>
           <div className="site-layout-content">
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/"
+                element={
+                  <HomePage
+                    setroomSearchSetting={setroomSearchSetting}
+                    handleRoomSearch={handleRoomSearch}
+                  />
+                }
+              />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
             </Routes>

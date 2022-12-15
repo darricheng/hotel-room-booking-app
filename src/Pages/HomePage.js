@@ -44,26 +44,31 @@ const roomSearchFormStyle = {
   justifyContent: "center",
 };
 
-// Initialise a default date range with the current date and the next day.
-const defaultDate = {
-  startDate: dayjs().toDate(),
-  endDate: dayjs().add(1, "day").toDate(),
-};
-
-export default function HomePage() {
-  const [dateRange, setDateRange] = useState(defaultDate);
-
-  // useEffect to log the dateRange state whenever it changes.
-  useEffect(() => {
-    console.log(dateRange);
-  }, [dateRange]);
-
+export default function HomePage(props) {
+  const { setroomSearchSetting, handleRoomSearch } = props;
   // Function to handle date change by updating the date range state.
   const handleDateChange = (dates, dateStrings) => {
-    setDateRange({
-      startDate: dates[0].toDate(),
-      endDate: dates[1].toDate(),
+    setroomSearchSetting((prev) => {
+      return {
+        ...prev,
+        startDate: dates[0] ? dates[0].toDate() : null,
+        endDate: dates[1] ? dates[1].toDate() : null,
+      };
     });
+  };
+  // Function to handle room type change by updating the room type state.
+  const handleRoomTypeChange = (value) => {
+    setroomSearchSetting((prev) => {
+      return {
+        ...prev,
+        roomType: value,
+      };
+    });
+  };
+
+  // Function to handle room search form submission failure.
+  const onFinishFailed = (errorInfo) => {
+    console.error("Failed:", errorInfo);
   };
 
   return (
@@ -73,26 +78,41 @@ export default function HomePage() {
       </div>
       <div className="intra-banner-content" style={roomSearchFormDivStyle}>
         {/* Set the range picker and button to be side-by-side */}
-        <Form layout="inline" style={roomSearchFormStyle}>
+        <Form
+          layout="inline"
+          style={roomSearchFormStyle}
+          onFinish={handleRoomSearch}
+          onFinishFailed={onFinishFailed}
+        >
           <Form.Item name="dateRange">
             <RangePicker
               size="large"
+              allowClear={false} // Disable the clear button
               defaultValue={[dayjs(), dayjs().add(1, "day")]}
               onChange={handleDateChange}
             />
           </Form.Item>
 
           <Form.Item name="roomType">
-            <Select defaultValue="single-room" size="large">
-              <Option value="single-room">Single Room</Option>
-              <Option value="double-room">Double Room</Option>
-              <Option value="deluxe-room">Deluxe Room</Option>
-              <Option value="suite-room">Suite Room</Option>
+            <Select
+              defaultValue="Single Room"
+              size="large"
+              onChange={handleRoomTypeChange}
+            >
+              <Option value="Single Room">Single Room</Option>
+              <Option value="Double Room">Double Room</Option>
+              <Option value="Deluxe Room">Deluxe Room</Option>
+              <Option value="Suite Room">Suite Room</Option>
             </Select>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" icon={<SearchOutlined />} size="large">
+            <Button
+              type="primary"
+              icon={<SearchOutlined />}
+              size="large"
+              htmlType="submit"
+            >
               Find Rooms
             </Button>
           </Form.Item>
