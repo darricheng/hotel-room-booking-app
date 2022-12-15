@@ -1,6 +1,5 @@
 // Module imports
-import { useState, useEffect } from "react";
-import { DatePicker, Button, Tooltip, Space } from "antd";
+import { DatePicker, Button, Select, Form } from "antd";
 import dayjs from "dayjs";
 
 // Asset imports
@@ -11,6 +10,7 @@ import HotelLogoSvg from "../Components/HotelLogoSvg";
 // Necessary import inits
 dayjs().format();
 const { RangePicker } = DatePicker;
+const { Option } = Select;
 
 // Styles
 const bannerImageStyle = {
@@ -32,34 +32,42 @@ const mainHotelLogoStyle = {
   display: "flex",
   justifyContent: "center",
 };
-const dateRangeStyle = {
+const roomSearchFormDivStyle = {
   position: "absolute",
   bottom: "4vw",
   left: "0",
   right: "0",
-  margin: "0 auto",
+};
+const roomSearchFormStyle = {
+  display: "flex",
+  justifyContent: "center",
 };
 
-// Initialise a default date range with the current date and the next day.
-const defaultDate = {
-  startDate: dayjs().toDate(),
-  endDate: dayjs().add(1, "day").toDate(),
-};
-
-export default function HomePage() {
-  const [dateRange, setDateRange] = useState(defaultDate);
-
-  // useEffect to log the dateRange state whenever it changes.
-  useEffect(() => {
-    console.log(dateRange);
-  }, [dateRange]);
-
+export default function HomePage(props) {
+  const { roomSearchSetting, setRoomSearchSetting, handleRoomSearch } = props;
   // Function to handle date change by updating the date range state.
   const handleDateChange = (dates, dateStrings) => {
-    setDateRange({
-      startDate: dates[0].toDate(),
-      endDate: dates[1].toDate(),
+    setRoomSearchSetting((prev) => {
+      return {
+        ...prev,
+        startDate: dates[0],
+        endDate: dates[1],
+      };
     });
+  };
+  // Function to handle room type change by updating the room type state.
+  const handleRoomTypeChange = (value) => {
+    setRoomSearchSetting((prev) => {
+      return {
+        ...prev,
+        roomType: value,
+      };
+    });
+  };
+
+  // Function to handle room search form submission failure.
+  const onFinishFailed = (errorInfo) => {
+    console.error("Failed:", errorInfo);
   };
 
   return (
@@ -67,20 +75,46 @@ export default function HomePage() {
       <div className="site-homepage-banner-title" style={mainHotelLogoStyle}>
         <HotelLogoSvg sizeMultiplier={8} />
       </div>
-      <div className="intra-banner-content" style={dateRangeStyle}>
+      <div className="intra-banner-content" style={roomSearchFormDivStyle}>
         {/* Set the range picker and button to be side-by-side */}
-        <Space align="end">
-          <RangePicker
-            size="large"
-            defaultValue={[dayjs(), dayjs().add(1, "day")]}
-            onChange={handleDateChange}
-          />
-          <Tooltip title="Find Rooms">
-            <Button type="primary" icon={<SearchOutlined />} size="large">
+        <Form
+          layout="inline"
+          style={roomSearchFormStyle}
+          onFinish={handleRoomSearch}
+          onFinishFailed={onFinishFailed}
+          initialValues={{
+            dateRange: [roomSearchSetting.startDate, roomSearchSetting.endDate],
+            roomType: roomSearchSetting.roomType,
+          }}
+        >
+          <Form.Item name="dateRange">
+            <RangePicker
+              size="large"
+              allowClear={false} // Disable the clear button
+              onChange={handleDateChange}
+            />
+          </Form.Item>
+
+          <Form.Item name="roomType">
+            <Select size="large" onChange={handleRoomTypeChange}>
+              <Option value="single-room">Single Room</Option>
+              <Option value="double-room">Double Room</Option>
+              <Option value="deluxe-room">Deluxe Room</Option>
+              <Option value="suite-room">Suite Room</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              icon={<SearchOutlined />}
+              size="large"
+              htmlType="submit"
+            >
               Find Rooms
             </Button>
-          </Tooltip>
-        </Space>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );

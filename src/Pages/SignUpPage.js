@@ -1,7 +1,7 @@
 // A signup page where users can create an account by entering their email and password.
 
 // Ant Design imports
-import { Select, Button, Checkbox, Form, Input, Typography } from "antd";
+import { Select, Button, Form, Input, Typography } from "antd";
 
 // Module imports
 import { useContext } from "react";
@@ -92,8 +92,7 @@ export default function SignUpPage() {
   // Handle the form submission failure
   const onFinishFailed = (errorInfo) => {
     // Log the error info to the console
-    console.log("Failed:", errorInfo);
-    console.log(typeof errorInfo.values.contactNumber);
+    console.error("Failed:", errorInfo);
   };
   return (
     <div style={signUpPageStyle}>
