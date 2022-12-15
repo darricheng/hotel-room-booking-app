@@ -92,8 +92,7 @@ export default function SignUpPage() {
   // Handle the form submission failure
   const onFinishFailed = (errorInfo) => {
     // Log the error info to the console
-    console.log("Failed:", errorInfo);
-    console.log(typeof errorInfo.values.contactNumber);
+    console.error("Failed:", errorInfo);
   };
   return (
     <div style={signUpPageStyle}>
