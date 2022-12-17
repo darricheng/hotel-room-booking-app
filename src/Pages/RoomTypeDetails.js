@@ -1,29 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Col, Row, Typography, Form, Select, DatePicker, Button } from "antd";
+import { Col, Row, Typography } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { roomDescriptions } from "../assets/roomDescriptions";
-
-// Necessary import inits
-const { RangePicker } = DatePicker;
-const { Option } = Select;
+import RoomSearchForm from "../Components/RoomSearchForm";
 
 // TODO: use dayjs().toDate() to convert the date strings to date objects when calling the book room api
-
-// Function to handle room search form submission failure.
-const onFinishFailed = (errorInfo) => {
-  console.error("Failed:", errorInfo);
-};
 
 // Function to book a room
 const bookRoom = (room) => {
   console.log("Book room", room);
-};
-
-// Styles
-const roomSearchFormStyle = {
-  display: "flex",
-  justifyContent: "start",
 };
 
 export default function RoomTypeDetails(props) {
@@ -101,38 +87,17 @@ export default function RoomTypeDetails(props) {
               ) : (
                 <p>Rooms available</p>
               )}
-              <Form
-                layout="inline"
-                style={roomSearchFormStyle}
-                onFinish={bookRoom}
-                onFinishFailed={onFinishFailed}
-                initialValues={{
-                  dateRange: [
-                    roomSearchSetting.startDate,
-                    roomSearchSetting.endDate,
-                  ],
-                  roomType: roomSearchSetting.roomType,
+              <RoomSearchForm
+                roomSearchSetting={roomSearchSetting}
+                handleFormSubmit={bookRoom}
+                handleDateChange={handleDateChange}
+                formJustifyContent={"start"}
+                requireRoomTypeSelector={false}
+                buttonProps={{
+                  text: "Book a Room",
+                  icon: <ArrowRightOutlined />,
                 }}
-              >
-                <Form.Item name="dateRange">
-                  <RangePicker
-                    size="large"
-                    allowClear={false} // Disable the clear button
-                    onChange={handleDateChange}
-                  />
-                </Form.Item>
-
-                <Form.Item>
-                  <Button
-                    type="primary"
-                    icon={<ArrowRightOutlined />}
-                    size="large"
-                    htmlType="submit"
-                  >
-                    Book a Room
-                  </Button>
-                </Form.Item>
-              </Form>
+              />
             </Col>
           </Row>
         </>
