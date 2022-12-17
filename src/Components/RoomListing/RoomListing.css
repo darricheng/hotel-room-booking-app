@@ -1,0 +1,16 @@
+/* * {
+  outline: 1px solid red;
+  outline-offset: -1px;
+} */
+
+.room-card-container {
+  padding: 1rem;
+}
+.room-card {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.room-card img {
+  object-fit: cover;
+}
