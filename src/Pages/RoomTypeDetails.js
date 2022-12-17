@@ -13,8 +13,9 @@ export default function RoomTypeDetails(props) {
 
   // Get the room type from the url instead of App state because the user may directly access the room type details page
   const { roomType } = useParams();
+
+  // Set the room type in App state to the room type in the url
   useEffect(() => {
-    // Set the room type in App state to the room type in the url
     setRoomSearchSetting({
       ...roomSearchSetting,
       roomType: roomType,
