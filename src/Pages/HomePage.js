@@ -61,7 +61,7 @@ export default function HomePage(props) {
           formJustifyContent={"center"}
           requireRoomTypeSelector={true}
           buttonProps={{
-            text: "Book a Room",
+            text: "Find Rooms",
             icon: <SearchOutlined />,
           }}
         />
