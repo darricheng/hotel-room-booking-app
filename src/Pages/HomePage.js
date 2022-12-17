@@ -1,6 +1,3 @@
-// Module imports
-import dayjs from "dayjs";
-
 // Asset imports
 import homePageBanner from "../assets/hotel-home-page-banner.jpg";
 import { SearchOutlined } from "@ant-design/icons";
@@ -8,9 +5,6 @@ import HotelLogoSvg from "../Components/HotelLogoSvg";
 
 // Component imports
 import RoomSearchForm from "../Components/RoomSearchForm";
-
-// Necessary import inits
-dayjs().format();
 
 // Styles
 const bannerImageStyle = {
