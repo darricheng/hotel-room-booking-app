@@ -8,7 +8,7 @@ export default function RoomTypeDetails(props) {
   // setRoomSearchSetting is for setting the single source of truth for the user's selected dates and room type
   const { roomSearchSetting, setRoomSearchSetting } = props;
 
-  // State to store the available rooms returned from the api call
+  // State to store the rooms returned from the api call
   const [rooms, setRooms] = useState([]);
 
   // Get the room type from the url instead of App state because the user may directly access the room type details page
