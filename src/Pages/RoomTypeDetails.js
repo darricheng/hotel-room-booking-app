@@ -14,7 +14,8 @@ export default function RoomTypeDetails(props) {
   // Get the room type from the url instead of App state because the user may directly access the room type details page
   const { roomType } = useParams();
 
-  // Set the room type in App state to the room type in the url
+  // Set the room type in App state to the room type in the url if the room type in the url is different from the room type in App state
+  // Might happen if the user directly accesses the room type details page
   useEffect(() => {
     setRoomSearchSetting({
       ...roomSearchSetting,
@@ -23,6 +24,7 @@ export default function RoomTypeDetails(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [roomType]); // Only want the effect to run when the room type changes
 
+  // Get the rooms from the api when the room type changes
   useEffect(() => {
     // Function to get the available rooms from the api
     const getRoomsFromApi = async (roomType) => {
