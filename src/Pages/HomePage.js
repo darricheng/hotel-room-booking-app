@@ -44,26 +44,12 @@ const roomSearchFormStyle = {
 };
 
 export default function HomePage(props) {
-  const { roomSearchSetting, setRoomSearchSetting, handleRoomSearch } = props;
-  // Function to handle date change by updating the date range state.
-  const handleDateChange = (dates, dateStrings) => {
-    setRoomSearchSetting((prev) => {
-      return {
-        ...prev,
-        startDate: dates[0],
-        endDate: dates[1],
-      };
-    });
-  };
-  // Function to handle room type change by updating the room type state.
-  const handleRoomTypeChange = (value) => {
-    setRoomSearchSetting((prev) => {
-      return {
-        ...prev,
-        roomType: value,
-      };
-    });
-  };
+  const {
+    roomSearchSetting,
+    handleRoomSearch,
+    handleDateChange,
+    handleRoomTypeChange,
+  } = props;
 
   // Function to handle room search form submission failure.
   const onFinishFailed = (errorInfo) => {

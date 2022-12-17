@@ -103,6 +103,26 @@ function App() {
     defaultRoomSearchSetting
   );
 
+  // Function to handle date change by updating the date range state.
+  const handleDateChange = (dates, dateStrings) => {
+    setRoomSearchSetting((prev) => {
+      return {
+        ...prev,
+        startDate: dates[0],
+        endDate: dates[1],
+      };
+    });
+  };
+  // Function to handle room type change by updating the room type state.
+  const handleRoomTypeChange = (value) => {
+    setRoomSearchSetting((prev) => {
+      return {
+        ...prev,
+        roomType: value,
+      };
+    });
+  };
+
   // Function to handle the room search functionality
   // Redirects the user to the room type details page based on the chosen room type
   const navigate = useNavigate();
@@ -136,8 +156,9 @@ function App() {
                 element={
                   <HomePage
                     roomSearchSetting={roomSearchSetting}
-                    setRoomSearchSetting={setRoomSearchSetting}
                     handleRoomSearch={handleRoomSearch}
+                    handleDateChange={handleDateChange}
+                    handleRoomTypeChange={handleRoomTypeChange}
                   />
                 }
               />
@@ -147,6 +168,7 @@ function App() {
                 element={
                   <RoomTypeDetails
                     roomSearchSetting={roomSearchSetting}
+                    handleDateChange={handleDateChange}
                     setRoomSearchSetting={setRoomSearchSetting}
                   />
                 }
