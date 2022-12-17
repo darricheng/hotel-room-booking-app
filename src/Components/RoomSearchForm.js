@@ -64,6 +64,7 @@ export default function RoomSearchForm(props) {
           icon={buttonProps.icon}
           size="large"
           htmlType="submit"
+          disabled={buttonProps.disabled || false}
         >
           {buttonProps.text}
         </Button>

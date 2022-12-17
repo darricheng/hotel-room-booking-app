@@ -57,6 +57,9 @@ export default function RoomTypeDetails(props) {
     getRoomsFromApi(roomType);
   }, [roomType]);
 
+  // Check whether there are any rooms available
+  const roomsAvailable = rooms.some((room) => room.booked === false);
+
   // Convert roomType to camelCase for importing the relevant room description
   // e.g. single-room => singleRoom
   const roomTypeCamelCase = roomType.replace(/-([a-z])/g, (g) =>
@@ -82,10 +85,10 @@ export default function RoomTypeDetails(props) {
               <Typography.Paragraph>
                 {roomDescriptions[roomTypeCamelCase]}
               </Typography.Paragraph>
-              {rooms.every((room) => room.booked) ? (
-                <p>No rooms available</p>
-              ) : (
+              {roomsAvailable ? (
                 <p>Rooms available</p>
+              ) : (
+                <p>No rooms available</p>
               )}
               <RoomSearchForm
                 roomSearchSetting={roomSearchSetting}
@@ -96,6 +99,7 @@ export default function RoomTypeDetails(props) {
                 buttonProps={{
                   text: "Book a Room",
                   icon: <ArrowRightOutlined />,
+                  disabled: !roomsAvailable, // Disable the button if there are no rooms available
                 }}
               />
             </Col>
