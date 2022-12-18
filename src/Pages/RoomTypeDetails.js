@@ -19,6 +19,9 @@ import { AuthContext } from "./firebase/AuthContext";
 // TODO: use dayjs().toDate() to convert the date strings to date objects when calling the book room api
 
 export default function RoomTypeDetails(props) {
+  // Check if the user is logged in
+  const { user } = useContext(AuthContext);
+
   // Get the room search setting from App state
   // setRoomSearchSetting is for setting the single source of truth for the user's selected dates and room type
   const { roomSearchSetting, setRoomSearchSetting, handleDateChange } = props;
@@ -103,6 +106,14 @@ export default function RoomTypeDetails(props) {
               ) : (
                 <p>No rooms available</p>
               )}
+              {/* Inform user that they must be logged in to book a room */}
+              {user ? (
+                {}
+              ) : (
+                <Typography.Paragraph>
+                  Please log in to book a room
+                </Typography.Paragraph>
+              )}
               <RoomSearchForm
                 roomSearchSetting={roomSearchSetting}
                 handleFormSubmit={bookRoom}
@@ -112,7 +123,8 @@ export default function RoomTypeDetails(props) {
                 buttonProps={{
                   text: "Book a Room",
                   icon: <ArrowRightOutlined />,
-                  disabled: !roomsAvailable, // Disable the button if there are no rooms available
+                  // Disable the book button if there are no rooms available or the user is not logged in
+                  disabled: !roomsAvailable || !user,
                 }}
               />
             </Col>
