@@ -1,10 +1,20 @@
-import { useEffect, useState } from "react";
+// Module imports
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router";
+
+// Component imports
+import RoomSearchForm from "../Components/RoomSearchForm";
+
+// Asset imports
+import { roomDescriptions } from "../assets/roomDescriptions";
+
+// Ant design imports
 import { Col, Row, Typography } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { roomDescriptions } from "../assets/roomDescriptions";
-import RoomSearchForm from "../Components/RoomSearchForm";
-import { useNavigate } from "react-router";
+
+// Auth imports
+import { AuthContext } from "./firebase/AuthContext";
 
 // TODO: use dayjs().toDate() to convert the date strings to date objects when calling the book room api
 
