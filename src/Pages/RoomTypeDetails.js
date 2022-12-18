@@ -4,13 +4,9 @@ import { Col, Row, Typography } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { roomDescriptions } from "../assets/roomDescriptions";
 import RoomSearchForm from "../Components/RoomSearchForm";
+import { useNavigate } from "react-router";
 
 // TODO: use dayjs().toDate() to convert the date strings to date objects when calling the book room api
-
-// Function to book a room
-const bookRoom = (room) => {
-  console.log("Book room", room);
-};
 
 export default function RoomTypeDetails(props) {
   // Get the room search setting from App state
@@ -65,6 +61,13 @@ export default function RoomTypeDetails(props) {
   const roomTypeCamelCase = roomType.replace(/-([a-z])/g, (g) =>
     g[1].toUpperCase()
   );
+
+  // Function to book a room
+  // Redirects the user to fill in details about their booking
+  const navigate = useNavigate();
+  const bookRoom = (room) => {
+    console.log("Book room", room);
+  };
 
   return (
     <div style={{ padding: "48px" }}>
