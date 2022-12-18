@@ -14,7 +14,7 @@ import { Col, Row, Typography } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 
 // Auth imports
-import { AuthContext } from "./firebase/AuthContext";
+import { AuthContext } from "../firebase/AuthContext";
 
 // TODO: use dayjs().toDate() to convert the date strings to date objects when calling the book room api
 
@@ -80,6 +80,7 @@ export default function RoomTypeDetails(props) {
   const navigate = useNavigate();
   const bookRoom = (room) => {
     console.log("Book room", room);
+    navigate(`/book-room`);
   };
 
   return (
@@ -108,7 +109,7 @@ export default function RoomTypeDetails(props) {
               )}
               {/* Inform user that they must be logged in to book a room */}
               {user ? (
-                {}
+                <></>
               ) : (
                 <Typography.Paragraph>
                   Please log in to book a room

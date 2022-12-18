@@ -174,11 +174,14 @@ function App() {
                   />
                 }
               />
+              <Route
+                path="/book-room"
+                element={<BookRoomPage roomSearchSetting={roomSearchSetting} />}
+              />
               {/* User management routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/rooms" element={<RoomListingPage />} />
-              <Route path="/book-room/:userId" element={<BookRoomPage />} />
             </Routes>
           </div>
         </Content>
