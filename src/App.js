@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
+import BookRoomPage from "./Pages/BookRoomPage";
 import RoomTypeDetails from "./Pages/RoomTypeDetails";
 import RoomListingPage from "./Pages/RoomListingPage";
 import HotelLogoSvg from "./Components/HotelLogoSvg";
@@ -177,6 +178,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/rooms" element={<RoomListingPage />} />
+              <Route path="/book-room/:userId" element={<BookRoomPage />} />
             </Routes>
           </div>
         </Content>
