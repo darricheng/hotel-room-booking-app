@@ -6,6 +6,15 @@ import { Form, Select, Typography, Input } from "antd";
 // Necessary component inits
 const { Option } = Select;
 
+// Function to call the api to book a room
+const callBookRoomApi = async (bookingDetails) => {
+  try {
+    console.log(bookingDetails);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default function BookRoomPage(props) {
   const { roomSearchSetting } = props;
   const { roomType, startDate, endDate } = roomSearchSetting;
