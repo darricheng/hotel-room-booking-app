@@ -210,6 +210,10 @@ export default function BookRoomPage(props) {
                   <Option value={"no"}>No</Option>
                 </Select>
               </Form.Item>
+              <Typography.Title level={3}>Other info</Typography.Title>
+              <Form.Item label="Special Requests">
+                <Input placeholder="e.g. extra pillows" />
+              </Form.Item>
             </>
           ))}
       </Form>
