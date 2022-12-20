@@ -31,6 +31,9 @@ export default function BookRoomPage(props) {
 
   // Default state object for the booking details
   const defaultBookingDetails = {
+    roomType: roomType,
+    startDate: startDate,
+    endDate: endDate,
     numGuests: 1,
     guestDetails: [
       {
