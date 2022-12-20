@@ -23,11 +23,17 @@ export default function BookRoomPage(props) {
   // State to store the number of guests in the booking
   const [numGuests, setNumGuests] = useState(1);
 
+  const divStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  };
+
   return (
-    <div>
+    <div style={divStyle}>
       <Typography.Title level={1}>Booking: {roomName}</Typography.Title>
       <Form>
-        <Form.Item label="numGuests">
+        <Form.Item label="Number of Guests">
           <Select value={numGuests} onChange={(value) => setNumGuests(value)}>
             <Option value={1}>1</Option>
             <Option value={2}>2</Option>
@@ -39,9 +45,31 @@ export default function BookRoomPage(props) {
         {Array(numGuests)
           .fill()
           .map((_, index) => (
-            <Form.Item label={`Guest ${index + 1} name`}>
-              <Input />
-            </Form.Item>
+            <>
+              <Typography.Title level={3}>Guest {index + 1}</Typography.Title>
+              <Form.Item label={`Name`}>
+                <Input />
+              </Form.Item>
+              <Typography.Title level={4}>Meal Requirements</Typography.Title>
+              <Form.Item label={"Breakfast"}>
+                <Select defaultValue={"yes"}>
+                  <Option value={"yes"}>Yes</Option>
+                  <Option value={"no"}>No</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label={"Lunch"}>
+                <Select defaultValue={"yes"}>
+                  <Option value={"yes"}>Yes</Option>
+                  <Option value={"no"}>No</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label={"Dinner"}>
+                <Select defaultValue={"yes"}>
+                  <Option value={"yes"}>Yes</Option>
+                  <Option value={"no"}>No</Option>
+                </Select>
+              </Form.Item>
+            </>
           ))}
       </Form>
     </div>
