@@ -15,7 +15,15 @@ const callBookRoomApi = async (bookingDetails) => {
   }
 };
 
-// TODO: Function to split special requests by commas into an array
+// Function to split special requests by commas into an array, then trims whitespace from both ends
+const parseSpecialRequests = (data) => {
+  // Split data by commas into an array
+  const arr = data.split(",");
+  // Remove whitespaces from the ends of each array element
+  const noWhitespaceArr = arr.map((value) => value.trim());
+
+  return noWhitespaceArr;
+};
 
 export default function BookRoomPage(props) {
   const { roomSearchSetting } = props;
