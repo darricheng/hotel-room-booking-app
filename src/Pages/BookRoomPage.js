@@ -125,7 +125,7 @@ export default function BookRoomPage(props) {
         {Array(bookingDetails.numGuests)
           .fill()
           .map((_, index) => (
-            <>
+            <div key={index}>
               <Typography.Title level={3}>Guest {index + 1}</Typography.Title>
               <Form.Item label={`Name`}>
                 <Input
@@ -236,7 +236,7 @@ export default function BookRoomPage(props) {
                   <Option value={"no"}>No</Option>
                 </Select>
               </Form.Item>
-            </>
+            </div>
           ))}
         <Typography.Title level={3}>Other info</Typography.Title>
         <Form.Item label="Special Requests">
