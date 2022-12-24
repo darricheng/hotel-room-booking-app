@@ -25,12 +25,6 @@ const parseSpecialRequests = (data) => {
   return noWhitespaceArr;
 };
 
-// Function that processes the booking submission
-const processBookingSubmission = (values) => {
-  // Get the form data from the values object
-  console.log(values);
-};
-
 // Handle the form submission failure
 const onFinishFailed = (errorInfo) => {
   // Log the error info to the console
@@ -52,23 +46,21 @@ export default function BookRoomPage(props) {
   const { user } = useContext(AuthContext);
 
   // Default state object for the booking details
-  const defaultBookingDetails = {
+  const priorConfirmedBookingDetails = {
     user: user,
     roomType: roomType,
     startDate: startDate,
     endDate: endDate,
-    numGuests: 1,
-    guestDetails: [
-      {
-        name: "",
-        breakfast: "yes",
-        lunch: "yes",
-        dinner: "yes",
-      },
-    ],
   };
-  // State to store the booking details entered by the user
-  const [bookingDetails, setBookingDetails] = useState(defaultBookingDetails);
+
+  // State object for the number of guests
+  const [numGuests, setNumGuests] = useState(1);
+
+  // Function that processes the booking submission
+  const processBookingSubmission = (values) => {
+    // Get the form data from the values object
+    console.log(values);
+  };
 
   const divStyle = {
     display: "flex",
@@ -83,6 +75,7 @@ export default function BookRoomPage(props) {
         name="Booking Form"
         onFinish={processBookingSubmission}
         onFinishFailed={onFinishFailed}
+        initialValues={{ numGuests: numGuests }}
       >
         <Form.Item
           label="Number of Guests"
@@ -93,36 +86,7 @@ export default function BookRoomPage(props) {
             },
           ]}
         >
-          <Select
-            value={bookingDetails.numGuests}
-            onChange={(value) =>
-              setBookingDetails((prev) => {
-                // Create a new array of guest details with the same length as the number of guests
-                const newGuestDetails = Array(value)
-                  .fill()
-                  .map((_, index) => {
-                    // If the new array is longer than the previous array, fill the new array with default guest details
-                    if (index >= prev.guestDetails.length) {
-                      return {
-                        name: "",
-                        breakfast: "yes",
-                        lunch: "yes",
-                        dinner: "yes",
-                      };
-                    }
-                    // If the new array is shorter than the previous array, return the guest details from the previous array
-                    else {
-                      return prev.guestDetails[index];
-                    }
-                  });
-                return {
-                  ...prev,
-                  numGuests: value,
-                  guestDetails: newGuestDetails,
-                };
-              })
-            }
-          >
+          <Select value={numGuests} onChange={(val) => setNumGuests(val)}>
             <Option value={1}>1</Option>
             <Option value={2}>2</Option>
             <Option value={3}>3</Option>
@@ -130,14 +94,14 @@ export default function BookRoomPage(props) {
           </Select>
         </Form.Item>
         {/* Show number of guest details input fields based on numGuests */}
-        {Array(bookingDetails.numGuests)
+        {Array(numGuests)
           .fill()
           .map((_, index) => (
             <div key={index}>
               <Typography.Title level={3}>Guest {index + 1}</Typography.Title>
               <Form.Item
                 label="Name"
-                name={`name${index + 1}`}
+                name={"name" + index}
                 rules={[
                   {
                     type: "string",
@@ -146,110 +110,35 @@ export default function BookRoomPage(props) {
                   },
                 ]}
               >
-                <Input
-                  onChange={(value) => {
-                    setBookingDetails((prev) => {
-                      const newGuestDetails = prev.guestDetails.map(
-                        (guest, guestIndex) => {
-                          if (guestIndex === index) {
-                            return {
-                              ...guest,
-                              name: value.target.value,
-                            };
-                          } else {
-                            return guest;
-                          }
-                        }
-                      );
-                      return {
-                        ...prev,
-                        guestDetails: newGuestDetails,
-                      };
-                    });
-                  }}
-                />
+                <Input placeholder="e.g. John Doe" />
               </Form.Item>
               <Typography.Title level={4}>Meal Requirements</Typography.Title>
-              <Form.Item label="Breakfast" name={`breakfast${index + 1}`}>
-                <Select
-                  defaultValue="yes"
-                  onChange={(value) => {
-                    setBookingDetails((prev) => {
-                      const newGuestDetails = prev.guestDetails.map(
-                        (guest, guestIndex) => {
-                          if (guestIndex === index) {
-                            return {
-                              ...guest,
-                              breakfast: value,
-                            };
-                          } else {
-                            return guest;
-                          }
-                        }
-                      );
-                      return {
-                        ...prev,
-                        guestDetails: newGuestDetails,
-                      };
-                    });
-                  }}
-                >
+              <Form.Item
+                label="Breakfast"
+                name={"breakfast" + index}
+                initialValue="yes"
+              >
+                <Select>
                   <Option value="yes">Yes</Option>
                   <Option value="no">No</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="Lunch" name={`lunch${index + 1}`}>
-                <Select
-                  defaultValue="yes"
-                  onChange={(value) => {
-                    setBookingDetails((prev) => {
-                      const newGuestDetails = prev.guestDetails.map(
-                        (guest, guestIndex) => {
-                          if (guestIndex === index) {
-                            return {
-                              ...guest,
-                              lunch: value,
-                            };
-                          } else {
-                            return guest;
-                          }
-                        }
-                      );
-                      return {
-                        ...prev,
-                        guestDetails: newGuestDetails,
-                      };
-                    });
-                  }}
-                >
+              <Form.Item
+                label="Lunch"
+                name={"lunch" + index}
+                initialValue="yes"
+              >
+                <Select>
                   <Option value="yes">Yes</Option>
                   <Option value="no">No</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="Dinner" name={`dinner${index + 1}`}>
-                <Select
-                  defaultValue="yes"
-                  onChange={(value) => {
-                    setBookingDetails((prev) => {
-                      const newGuestDetails = prev.guestDetails.map(
-                        (guest, guestIndex) => {
-                          if (guestIndex === index) {
-                            return {
-                              ...guest,
-                              dinner: value,
-                            };
-                          } else {
-                            return guest;
-                          }
-                        }
-                      );
-                      return {
-                        ...prev,
-                        guestDetails: newGuestDetails,
-                      };
-                    });
-                  }}
-                >
+              <Form.Item
+                label="Dinner"
+                name={"dinner" + index}
+                initialValue="yes"
+              >
+                <Select>
                   <Option value="yes">Yes</Option>
                   <Option value="no">No</Option>
                 </Select>
