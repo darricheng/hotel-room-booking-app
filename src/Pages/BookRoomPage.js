@@ -28,6 +28,13 @@ const parseSpecialRequests = (data) => {
 // Function that processes the booking submission
 const processBookingSubmission = (values) => {
   // Get the form data from the values object
+  console.log(values);
+};
+
+// Handle the form submission failure
+const onFinishFailed = (errorInfo) => {
+  // Log the error info to the console
+  console.error("Failed:", errorInfo);
 };
 
 export default function BookRoomPage(props) {
@@ -72,7 +79,11 @@ export default function BookRoomPage(props) {
   return (
     <div style={divStyle}>
       <Typography.Title level={1}>Booking: {roomName}</Typography.Title>
-      <Form>
+      <Form
+        name="Booking Form"
+        onFinish={processBookingSubmission}
+        onFinishFailed={onFinishFailed}
+      >
         <Form.Item label="Number of Guests">
           <Select
             value={bookingDetails.numGuests}
@@ -232,12 +243,7 @@ export default function BookRoomPage(props) {
           <Input placeholder="e.g. extra pillows" />
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            onClick={() => {
-              console.log(bookingDetails);
-            }}
-          >
+          <Button type="primary" htmlType="submit">
             Submit Booking
           </Button>
         </Form.Item>
