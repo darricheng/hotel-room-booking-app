@@ -84,7 +84,15 @@ export default function BookRoomPage(props) {
         onFinish={processBookingSubmission}
         onFinishFailed={onFinishFailed}
       >
-        <Form.Item label="Number of Guests">
+        <Form.Item
+          label="Number of Guests"
+          name="numGuests"
+          rules={[
+            {
+              type: "number",
+            },
+          ]}
+        >
           <Select
             value={bookingDetails.numGuests}
             onChange={(value) =>
@@ -127,7 +135,17 @@ export default function BookRoomPage(props) {
           .map((_, index) => (
             <div key={index}>
               <Typography.Title level={3}>Guest {index + 1}</Typography.Title>
-              <Form.Item label="Name">
+              <Form.Item
+                label="Name"
+                name={`name${index + 1}`}
+                rules={[
+                  {
+                    type: "string",
+                    required: true,
+                    message: `Please input the name of guest ${index + 1}`,
+                  },
+                ]}
+              >
                 <Input
                   onChange={(value) => {
                     setBookingDetails((prev) => {
@@ -152,7 +170,7 @@ export default function BookRoomPage(props) {
                 />
               </Form.Item>
               <Typography.Title level={4}>Meal Requirements</Typography.Title>
-              <Form.Item label="Breakfast">
+              <Form.Item label="Breakfast" name={`breakfast${index + 1}`}>
                 <Select
                   defaultValue="yes"
                   onChange={(value) => {
@@ -180,7 +198,7 @@ export default function BookRoomPage(props) {
                   <Option value="no">No</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="Lunch">
+              <Form.Item label="Lunch" name={`lunch${index + 1}`}>
                 <Select
                   defaultValue="yes"
                   onChange={(value) => {
@@ -208,7 +226,7 @@ export default function BookRoomPage(props) {
                   <Option value="no">No</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label="Dinner">
+              <Form.Item label="Dinner" name={`dinner${index + 1}`}>
                 <Select
                   defaultValue="yes"
                   onChange={(value) => {
@@ -239,7 +257,16 @@ export default function BookRoomPage(props) {
             </div>
           ))}
         <Typography.Title level={3}>Other info</Typography.Title>
-        <Form.Item label="Special Requests">
+        <Form.Item
+          label="Special Requests"
+          name="specialRequests"
+          rules={[
+            {
+              type: "string",
+              message: "State any special requests here",
+            },
+          ]}
+        >
           <Input placeholder="e.g. extra pillows" />
         </Form.Item>
         <Form.Item>
