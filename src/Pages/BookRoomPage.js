@@ -1,7 +1,7 @@
 // Module imports
 import { useContext, useState } from "react";
 import { AuthContext } from "../firebase/AuthContext";
-import { Form, Select, Typography, Input } from "antd";
+import { Form, Select, Typography, Input, Button } from "antd";
 
 // Necessary component inits
 const { Option } = Select;
@@ -23,6 +23,11 @@ const parseSpecialRequests = (data) => {
   const noWhitespaceArr = arr.map((value) => value.trim());
 
   return noWhitespaceArr;
+};
+
+// Function that processes the booking submission
+const processBookingSubmission = (values) => {
+  // Get the form data from the values object
 };
 
 export default function BookRoomPage(props) {
@@ -220,12 +225,22 @@ export default function BookRoomPage(props) {
                   <Option value={"no"}>No</Option>
                 </Select>
               </Form.Item>
-              <Typography.Title level={3}>Other info</Typography.Title>
-              <Form.Item label="Special Requests">
-                <Input placeholder="e.g. extra pillows" />
-              </Form.Item>
             </>
           ))}
+        <Typography.Title level={3}>Other info</Typography.Title>
+        <Form.Item label="Special Requests">
+          <Input placeholder="e.g. extra pillows" />
+        </Form.Item>
+        <Form.Item>
+          <Button
+            type="primary"
+            onClick={() => {
+              console.log(bookingDetails);
+            }}
+          >
+            Submit Booking
+          </Button>
+        </Form.Item>
       </Form>
     </div>
   );
