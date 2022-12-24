@@ -127,7 +127,7 @@ export default function BookRoomPage(props) {
           .map((_, index) => (
             <div key={index}>
               <Typography.Title level={3}>Guest {index + 1}</Typography.Title>
-              <Form.Item label={`Name`}>
+              <Form.Item label="Name">
                 <Input
                   onChange={(value) => {
                     setBookingDetails((prev) => {
@@ -152,9 +152,9 @@ export default function BookRoomPage(props) {
                 />
               </Form.Item>
               <Typography.Title level={4}>Meal Requirements</Typography.Title>
-              <Form.Item label={"Breakfast"}>
+              <Form.Item label="Breakfast">
                 <Select
-                  defaultValue={"yes"}
+                  defaultValue="yes"
                   onChange={(value) => {
                     setBookingDetails((prev) => {
                       const newGuestDetails = prev.guestDetails.map(
@@ -176,13 +176,13 @@ export default function BookRoomPage(props) {
                     });
                   }}
                 >
-                  <Option value={"yes"}>Yes</Option>
-                  <Option value={"no"}>No</Option>
+                  <Option value="yes">Yes</Option>
+                  <Option value="no">No</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label={"Lunch"}>
+              <Form.Item label="Lunch">
                 <Select
-                  defaultValue={"yes"}
+                  defaultValue="yes"
                   onChange={(value) => {
                     setBookingDetails((prev) => {
                       const newGuestDetails = prev.guestDetails.map(
@@ -204,13 +204,13 @@ export default function BookRoomPage(props) {
                     });
                   }}
                 >
-                  <Option value={"yes"}>Yes</Option>
-                  <Option value={"no"}>No</Option>
+                  <Option value="yes">Yes</Option>
+                  <Option value="no">No</Option>
                 </Select>
               </Form.Item>
-              <Form.Item label={"Dinner"}>
+              <Form.Item label="Dinner">
                 <Select
-                  defaultValue={"yes"}
+                  defaultValue="yes"
                   onChange={(value) => {
                     setBookingDetails((prev) => {
                       const newGuestDetails = prev.guestDetails.map(
@@ -232,8 +232,8 @@ export default function BookRoomPage(props) {
                     });
                   }}
                 >
-                  <Option value={"yes"}>Yes</Option>
-                  <Option value={"no"}>No</Option>
+                  <Option value="yes">Yes</Option>
+                  <Option value="no">No</Option>
                 </Select>
               </Form.Item>
             </div>
