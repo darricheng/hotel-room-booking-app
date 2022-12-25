@@ -16,6 +16,7 @@ import Contact from "./Pages/ContactPage";
 import BookRoomPage from "./Pages/BookRoomPage";
 import RoomTypeDetails from "./Pages/RoomTypeDetails";
 import RoomListingPage from "./Pages/RoomListingPage";
+import BookingConfirmationPage from "./Pages/BookingConfirmationPage";
 import HotelLogoSvg from "./Components/HotelLogoSvg";
 
 // React imports
@@ -189,9 +190,14 @@ function App() {
                 path="/book-room"
                 element={<BookRoomPage roomSearchSetting={roomSearchSetting} />}
               />
+              <Route
+                path="/booking-confirmation"
+                element={<BookingConfirmationPage />}
+              />
               {/* User management routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              {/* Other pages */}
               <Route path="/rooms" element={<RoomListingPage />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
