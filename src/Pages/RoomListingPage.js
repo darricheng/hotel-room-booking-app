@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import axios from "axios";
-import singleRoomImage from "../assets/single_room.jpg";
-import doubleRoomImage from "../assets/double_room.jpg";
-import deluxeRoomImage from "../assets/deluxe_room.jpg";
-import suiteRoomImage from "../assets/suite_room.jpg";
+import singleRoomImage from "../assets/single-room.jpg";
+import doubleRoomImage from "../assets/double-room.jpg";
+import deluxeRoomImage from "../assets/deluxe-room.jpg";
+import suiteRoomImage from "../assets/suite-room.jpg";
 import RoomListing from "../Components/RoomListing/RoomListing";
 
 const RoomListingPage = () => {

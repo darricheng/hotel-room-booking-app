@@ -8,6 +8,8 @@ import { auth } from "./firebaseConfig";
 export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
+  // Properties available for the user object
+  // See: https://firebase.google.com/docs/reference/js/v8/firebase.User
   const [user, setUser] = useState(null);
 
   useEffect(() => {

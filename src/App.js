@@ -4,7 +4,8 @@ import "./styles.css";
 import { Layout, Menu } from "antd";
 
 // module imports
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
 
 // Component imports
 import HomePage from "./Pages/HomePage";
@@ -12,6 +13,9 @@ import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
 import About from "./Pages/AboutPage";
 import Contact from "./Pages/ContactPage";
+import BookRoomPage from "./Pages/BookRoomPage";
+import RoomTypeDetails from "./Pages/RoomTypeDetails";
+import RoomListingPage from "./Pages/RoomListingPage";
 import HotelLogoSvg from "./Components/HotelLogoSvg";
 
 // React imports
@@ -21,10 +25,12 @@ import { useContext, useState } from "react";
 import { signOut } from "firebase/auth";
 import { AuthContext } from "./firebase/AuthContext";
 import { auth } from "./firebase/firebaseConfig";
-import RoomListingPage from "./Pages/RoomListingPage";
 
 // Ant Design Layout Components
 const { Header, Content, Footer } = Layout;
+
+// dayjs init
+dayjs().format();
 
 function App() {
   // Check if the user is logged in
@@ -97,6 +103,46 @@ function App() {
       : []),
   ];
 
+  // State management for the room search functionality
+  // Initialise a default date range with the current date and the next day.
+  const defaultRoomSearchSetting = {
+    // Use dayjs to convert the date to something that the Range Picker can understand
+    startDate: dayjs(),
+    endDate: dayjs().add(1, "day"),
+    roomType: "single-room",
+  };
+  const [roomSearchSetting, setRoomSearchSetting] = useState(
+    defaultRoomSearchSetting
+  );
+
+  // Function to handle date change by updating the date range state.
+  const handleDateChange = (dates, dateStrings) => {
+    setRoomSearchSetting((prev) => {
+      return {
+        ...prev,
+        startDate: dates[0],
+        endDate: dates[1],
+      };
+    });
+  };
+  // Function to handle room type change by updating the room type state.
+  const handleRoomTypeChange = (value) => {
+    setRoomSearchSetting((prev) => {
+      return {
+        ...prev,
+        roomType: value,
+      };
+    });
+  };
+
+  // Function to handle the room search functionality
+  // Redirects the user to the room type details page based on the chosen room type
+  const navigate = useNavigate();
+  const handleRoomSearch = () => {
+    console.log(roomSearchSetting);
+    navigate(`/rooms/${roomSearchSetting.roomType}`);
+  };
+
   return (
     <>
       <Layout className="layout">
@@ -116,7 +162,34 @@ function App() {
         <Content>
           <div className="site-layout-content">
             <Routes>
-              <Route path="/" element={<HomePage />} />
+              {/* Home page route */}
+              <Route
+                path="/"
+                element={
+                  <HomePage
+                    roomSearchSetting={roomSearchSetting}
+                    handleRoomSearch={handleRoomSearch}
+                    handleDateChange={handleDateChange}
+                    handleRoomTypeChange={handleRoomTypeChange}
+                  />
+                }
+              />
+              {/* Room type details route */}
+              <Route
+                path="/rooms/:roomType"
+                element={
+                  <RoomTypeDetails
+                    roomSearchSetting={roomSearchSetting}
+                    handleDateChange={handleDateChange}
+                    setRoomSearchSetting={setRoomSearchSetting}
+                  />
+                }
+              />
+              <Route
+                path="/book-room"
+                element={<BookRoomPage roomSearchSetting={roomSearchSetting} />}
+              />
+              {/* User management routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/rooms" element={<RoomListingPage />} />

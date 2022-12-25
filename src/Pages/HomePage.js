@@ -1,16 +1,10 @@
-// Module imports
-import { useState, useEffect } from "react";
-import { DatePicker, Button, Tooltip, Space } from "antd";
-import dayjs from "dayjs";
-
 // Asset imports
 import homePageBanner from "../assets/hotel-home-page-banner.jpg";
 import { SearchOutlined } from "@ant-design/icons";
 import HotelLogoSvg from "../Components/HotelLogoSvg";
 
-// Necessary import inits
-dayjs().format();
-const { RangePicker } = DatePicker;
+// Component imports
+import RoomSearchForm from "../Components/RoomSearchForm";
 
 // Styles
 const bannerImageStyle = {
@@ -32,55 +26,39 @@ const mainHotelLogoStyle = {
   display: "flex",
   justifyContent: "center",
 };
-const dateRangeStyle = {
+const roomSearchFormDivStyle = {
   position: "absolute",
   bottom: "4vw",
   left: "0",
   right: "0",
-  margin: "0 auto",
 };
 
-// Initialise a default date range with the current date and the next day.
-const defaultDate = {
-  startDate: dayjs().toDate(),
-  endDate: dayjs().add(1, "day").toDate(),
-};
-
-export default function HomePage() {
-  const [dateRange, setDateRange] = useState(defaultDate);
-
-  // useEffect to log the dateRange state whenever it changes.
-  useEffect(() => {
-    console.log(dateRange);
-  }, [dateRange]);
-
-  // Function to handle date change by updating the date range state.
-  const handleDateChange = (dates, dateStrings) => {
-    setDateRange({
-      startDate: dates[0].toDate(),
-      endDate: dates[1].toDate(),
-    });
-  };
+export default function HomePage(props) {
+  const {
+    roomSearchSetting,
+    handleRoomSearch,
+    handleDateChange,
+    handleRoomTypeChange,
+  } = props;
 
   return (
     <div className="site-homepage-banner-content" style={bannerImageStyle}>
       <div className="site-homepage-banner-title" style={mainHotelLogoStyle}>
         <HotelLogoSvg sizeMultiplier={8} />
       </div>
-      <div className="intra-banner-content" style={dateRangeStyle}>
-        {/* Set the range picker and button to be side-by-side */}
-        <Space align="end">
-          <RangePicker
-            size="large"
-            defaultValue={[dayjs(), dayjs().add(1, "day")]}
-            onChange={handleDateChange}
-          />
-          <Tooltip title="Find Rooms">
-            <Button type="primary" icon={<SearchOutlined />} size="large">
-              Find Rooms
-            </Button>
-          </Tooltip>
-        </Space>
+      <div className="intra-banner-content" style={roomSearchFormDivStyle}>
+        <RoomSearchForm
+          roomSearchSetting={roomSearchSetting}
+          handleFormSubmit={handleRoomSearch}
+          handleDateChange={handleDateChange}
+          handleRoomTypeChange={handleRoomTypeChange}
+          formJustifyContent={"center"}
+          requireRoomTypeSelector={true}
+          buttonProps={{
+            text: "Find Rooms",
+            icon: <SearchOutlined />,
+          }}
+        />
       </div>
     </div>
   );
