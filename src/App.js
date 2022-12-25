@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
+import ProfilePage from "./Pages/ProfilePage";
 import About from "./Pages/AboutPage";
 import Contact from "./Pages/ContactPage";
 import BookRoomPage from "./Pages/BookRoomPage";
@@ -65,12 +66,15 @@ function App() {
   // List of pages to appear in the navigation bar
   // Conditional elements are used to show/hide certain page links depending on whether the user is logged in or not
   // See: https://stackoverflow.com/a/47771259
-  // TODO: Add other pages to the nav bar, such as about us, contact us, etc.
   const menuItems = [
     // Links that will be shown regardless of whether the user is logged in or not
     {
       label: <Link to="/">Home</Link>,
       key: "Home",
+    },
+    {
+      label: <Link to="/rooms">Rooms</Link>,
+      key: "Rooms",
     },
     {
       label: <Link to="/about">About</Link>,
@@ -83,6 +87,10 @@ function App() {
     // If user is logged in, show the logout link
     ...(user
       ? [
+          {
+            label: <Link to="/profile">Profile</Link>,
+            key: "Profile",
+          },
           {
             label: <Link>Logout</Link>,
             key: "Logout",
@@ -197,6 +205,7 @@ function App() {
               {/* User management routes */}
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
               {/* Other pages */}
               <Route path="/rooms" element={<RoomListingPage />} />
               <Route path="/about" element={<About />} />
