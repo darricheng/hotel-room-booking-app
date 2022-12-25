@@ -1,5 +1,6 @@
 // Module imports
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../firebase/AuthContext";
 import { Form, Select, Typography, Input, Button } from "antd";
 
@@ -21,9 +22,6 @@ const callBookRoomApi = async (roomType, bookingDetails) => {
       }
     );
     console.log("response: ", response);
-    // const data = await response.json();
-    // console.log(data);
-    // return data;
     return response.status;
   } catch (error) {
     console.error(error);
@@ -70,6 +68,9 @@ const onFinishFailed = (errorInfo) => {
 export default function BookRoomPage(props) {
   const { roomSearchSetting } = props;
   const { roomType, startDate, endDate } = roomSearchSetting;
+
+  // Initialize the navigate function from react-router-dom
+  const navigate = useNavigate();
 
   // Convert dash to space and capitalize the first letter of each word
   // e.g. single-room => Single Room
@@ -139,8 +140,14 @@ export default function BookRoomPage(props) {
     // Call the book room api
     const resStatus = await callBookRoomApi(roomType, bookingDetails);
 
-    // TODO: Navigate to the booking details page
-    console.log(resStatus);
+    // Navigate to the booking details page
+    if (resStatus === 200) {
+      console.log("Booking successful");
+      // Navigate to the booking confirmation page
+      navigate("/booking-confirmation");
+    } else {
+      console.log("Booking failed");
+    }
   };
 
   const divStyle = {

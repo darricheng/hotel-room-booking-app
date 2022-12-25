@@ -5,7 +5,7 @@ import { Button, Checkbox, Form, Input, Typography } from "antd";
 
 // Module imports
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Firebase imports
 // See https://firebase.google.com/docs/auth/web/start#sign_up_new_users
@@ -25,6 +25,9 @@ export default function LoginPage() {
   // Check if the user is logged in
   const { user } = useContext(AuthContext);
 
+  // Initialize the navigate function from react-router-dom
+  const navigate = useNavigate();
+
   // Handle the form submission
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -32,8 +35,8 @@ export default function LoginPage() {
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        // TODO: Redirect to the home page
+        // Redirect to the home page
+        navigate("/");
         console.log("User created successfully");
       })
       .catch((error) => {

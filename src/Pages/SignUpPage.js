@@ -5,6 +5,7 @@ import { Select, Button, Form, Input, Typography } from "antd";
 
 // Module imports
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Firebase imports
 // See https://firebase.google.com/docs/auth/web/start#sign_up_new_users
@@ -63,7 +64,9 @@ const callCreateUserAPI = async (firebaseData, userInputData) => {
 };
 
 export default function SignUpPage() {
-  console.log(process.env.REACT_APP_API_URL);
+  // Initialize the navigate function from react-router-dom
+  const navigate = useNavigate();
+
   // Check if the user is logged in
   const { user } = useContext(AuthContext);
 
@@ -82,7 +85,8 @@ export default function SignUpPage() {
       // Call the createUser API endpoint to create the userCredential in the database
       const user = await callCreateUserAPI(userCredential.user, values);
       console.log("User created successfully: " + user);
-      // TODO: Redirect to the home page
+      // Redirect to the home page
+      navigate("/");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
