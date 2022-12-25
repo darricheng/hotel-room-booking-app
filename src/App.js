@@ -1,5 +1,6 @@
 // Ant design imports
 import "antd/dist/reset.css";
+import "./styles.css";
 import { Layout, Menu } from "antd";
 
 // module imports
@@ -10,6 +11,8 @@ import dayjs from "dayjs";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
+import About from "./Pages/AboutPage";
+import Contact from "./Pages/ContactPage";
 import BookRoomPage from "./Pages/BookRoomPage";
 import RoomTypeDetails from "./Pages/RoomTypeDetails";
 import RoomListingPage from "./Pages/RoomListingPage";
@@ -67,6 +70,14 @@ function App() {
     {
       label: <Link to="/">Home</Link>,
       key: "Home",
+    },
+    {
+      label: <Link to="/about">About</Link>,
+      key: "About",
+    },
+    {
+      label: <Link to="/contact">Contact Us</Link>,
+      key: "Contact",
     },
     // If user is logged in, show the logout link
     ...(user
@@ -182,6 +193,8 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/rooms" element={<RoomListingPage />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
             </Routes>
           </div>
         </Content>
