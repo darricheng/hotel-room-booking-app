@@ -149,6 +149,9 @@ function App() {
   const navigate = useNavigate();
   const handleRoomSearch = () => {
     console.log(roomSearchSetting);
+    // If the user searches for a room, change the key to "Rooms" so that the Rooms menu item is highlighted
+    setCurrentPage("Rooms");
+
     navigate(`/rooms/${roomSearchSetting.roomType}`);
   };
 
