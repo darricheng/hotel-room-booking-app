@@ -16,8 +16,6 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 // Auth imports
 import { AuthContext } from "../firebase/AuthContext";
 
-// TODO: use dayjs().toDate() to convert the date strings to date objects when calling the book room api
-
 export default function RoomTypeDetails(props) {
   // Check if the user is logged in
   const { user } = useContext(AuthContext);
