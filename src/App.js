@@ -10,7 +10,9 @@ import dayjs from "dayjs";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
+import BookRoomPage from "./Pages/BookRoomPage";
 import RoomTypeDetails from "./Pages/RoomTypeDetails";
+import RoomListingPage from "./Pages/RoomListingPage";
 import HotelLogoSvg from "./Components/HotelLogoSvg";
 
 // React imports
@@ -20,7 +22,6 @@ import { useContext, useState } from "react";
 import { signOut } from "firebase/auth";
 import { AuthContext } from "./firebase/AuthContext";
 import { auth } from "./firebase/firebaseConfig";
-import RoomListingPage from "./Pages/RoomListingPage";
 
 // Ant Design Layout Components
 const { Header, Content, Footer } = Layout;
@@ -103,6 +104,26 @@ function App() {
     defaultRoomSearchSetting
   );
 
+  // Function to handle date change by updating the date range state.
+  const handleDateChange = (dates, dateStrings) => {
+    setRoomSearchSetting((prev) => {
+      return {
+        ...prev,
+        startDate: dates[0],
+        endDate: dates[1],
+      };
+    });
+  };
+  // Function to handle room type change by updating the room type state.
+  const handleRoomTypeChange = (value) => {
+    setRoomSearchSetting((prev) => {
+      return {
+        ...prev,
+        roomType: value,
+      };
+    });
+  };
+
   // Function to handle the room search functionality
   // Redirects the user to the room type details page based on the chosen room type
   const navigate = useNavigate();
@@ -136,8 +157,9 @@ function App() {
                 element={
                   <HomePage
                     roomSearchSetting={roomSearchSetting}
-                    setRoomSearchSetting={setRoomSearchSetting}
                     handleRoomSearch={handleRoomSearch}
+                    handleDateChange={handleDateChange}
+                    handleRoomTypeChange={handleRoomTypeChange}
                   />
                 }
               />
@@ -147,9 +169,14 @@ function App() {
                 element={
                   <RoomTypeDetails
                     roomSearchSetting={roomSearchSetting}
+                    handleDateChange={handleDateChange}
                     setRoomSearchSetting={setRoomSearchSetting}
                   />
                 }
+              />
+              <Route
+                path="/book-room"
+                element={<BookRoomPage roomSearchSetting={roomSearchSetting} />}
               />
               {/* User management routes */}
               <Route path="/login" element={<LoginPage />} />

@@ -104,7 +104,7 @@ export default function SignUpPage() {
         </Typography.Title>
       ) : (
         <Form
-          name="basic"
+          name="signup form"
           labelCol={{
             span: 8,
           }}
