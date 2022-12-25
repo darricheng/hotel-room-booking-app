@@ -6,10 +6,46 @@ import { Form, Select, Typography, Input, Button } from "antd";
 // Necessary component inits
 const { Option } = Select;
 
-// TODO: Function to call the api to book a room
-const callBookRoomApi = async (bookingDetails) => {
+// Function to call the api to book a room
+const callBookRoomApi = async (roomType, bookingDetails) => {
+  console.log(bookingDetails);
   try {
-    console.log(bookingDetails);
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "/rooms/book/" + roomType,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookingDetails),
+      }
+    );
+    console.log("response: ", response);
+    // const data = await response.json();
+    // console.log(data);
+    // return data;
+    return response.status;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// Function to call the create many guests api
+const callCreateManyGuestsApi = async (guestDetails) => {
+  try {
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "/guests/addMany",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(guestDetails),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch (error) {
     console.error(error);
   }
@@ -45,21 +81,66 @@ export default function BookRoomPage(props) {
   // Get the details of the logged in user
   const { user } = useContext(AuthContext);
 
-  // Default state object for the booking details
+  // Booking details object that will be passed to the api based on the already confirmed booking details
   const priorConfirmedBookingDetails = {
-    user: user,
-    roomType: roomType,
-    startDate: startDate,
-    endDate: endDate,
+    booked_by: user.uid,
+    // Convert the dayjs date to a JS Date Object
+    booked_start_date: startDate.toDate(),
+    booked_end_date: endDate.toDate(),
   };
 
   // State object for the number of guests
   const [numGuests, setNumGuests] = useState(1);
 
   // Function that processes the booking submission
-  const processBookingSubmission = (values) => {
+  const processBookingSubmission = async (values) => {
     // Get the form data from the values object
     console.log(values);
+
+    // Get the special requests from the form data
+    const specialRequests = values.specialRequests
+      ? parseSpecialRequests(values.specialRequests)
+      : [];
+
+    // Store the number of guests in a variable
+    const numGuests = values.numGuests;
+
+    // Create an array of the guest details
+    const guestDetails = [];
+    for (let i = 0; i < numGuests; i++) {
+      // Get the guest details from the form data
+      const guestName = values[`name${i}`];
+      const breakfast = values[`breakfast${i}`];
+      const lunch = values[`lunch${i}`];
+      const dinner = values[`dinner${i}`];
+      const guest = {
+        name: guestName,
+        breakfast: breakfast === "yes",
+        lunch: lunch === "yes",
+        dinner: dinner === "yes",
+      };
+      guestDetails.push(guest);
+    }
+
+    // Call the create many guests api
+    const createdGuestsData = await callCreateManyGuestsApi(guestDetails);
+    console.log(createdGuestsData);
+
+    // Add the guest ids to the booking details object
+    const guestIds = createdGuestsData.map((guest) => guest._id);
+
+    // Create the booking details object
+    const bookingDetails = {
+      ...priorConfirmedBookingDetails,
+      guests: guestIds,
+      add_ons: specialRequests,
+    };
+
+    // Call the book room api
+    const resStatus = await callBookRoomApi(roomType, bookingDetails);
+
+    // TODO: Navigate to the booking details page
+    console.log(resStatus);
   };
 
   const divStyle = {
