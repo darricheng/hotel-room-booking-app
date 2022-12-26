@@ -40,7 +40,7 @@ To run the app locally, run `npm start` in the terminal. The app will be availab
 
 Necessary environment variables are:
 
-- `REACT_APP_API_URL = http://localhost:PORT/api` (set to the backend URL if you are hosting the backend on a different URL; include the `/api` at the end)
+- `REACT_APP_API_URL`: suggest setting it to `http://localhost:PORT/api`, where `PORT` is the port on which your backend app is listening for requests. If you are hosting the backend on a different URL, make sure to include the `/api` at the end of the URL.
 
 **Backend:**
 
@@ -48,9 +48,9 @@ To run the backend locally, run `npm run dev` in the terminal. The backend will 
 
 Necessary environment variables are:
 
-- `PORT`
-- `MONGO_URL`
-- `CORS_ORIGIN = http://localhost:3000` (set to the frontend URL if you are hosting the frontend on a different URL)
+- `PORT`: the port at which your app listens for requests, e.g. `8080`.
+- `MONGO_URL`: the URL to your MongoDB database, e.g. `mongodb://localhost:27017/hotel-booking`.
+- `CORS_ORIGIN = http://localhost:3000`: for allowing cross-origin requests to go through (set to the frontend URL if you are hosting the frontend on a different URL).
 
 ## Features
 
