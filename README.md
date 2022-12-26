@@ -9,6 +9,16 @@ The app is built using the MERN stack (MongoDB, Express, React, Node.js). It was
 
 [Access a working version of the app](https://hotel-room-booking-app.vercel.app/)
 
+## Features
+
+Users can:
+
+- Create an account
+- Log in
+- Search for room availability based on check-in and check-out dates
+- Book a room if one is available
+- View their booking history
+
 ## Technologies Used
 
 **Frontend:**
@@ -51,16 +61,6 @@ Necessary environment variables are:
 - `PORT`: the port at which your app listens for requests, e.g. `8080`.
 - `MONGO_URL`: the URL to your MongoDB database, e.g. `mongodb://localhost:27017/hotel-booking`.
 - `CORS_ORIGIN = http://localhost:3000`: for allowing cross-origin requests to go through (set to the frontend URL if you are hosting the frontend on a different URL).
-
-## Features
-
-Users can:
-
-- Create an account
-- Log in
-- Search for room availability based on check-in and check-out dates
-- Book a room if one is available
-- View their booking history
 
 ## Areas for Improvement
 
