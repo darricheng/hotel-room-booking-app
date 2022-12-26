@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
-import axios from "axios";
 import singleRoomImage from "../assets/single-room.jpg";
 import doubleRoomImage from "../assets/double-room.jpg";
 import deluxeRoomImage from "../assets/deluxe-room.jpg";
@@ -11,11 +10,6 @@ const RoomListingPage = () => {
   const [rooms, setRooms] = useState([]);
 
   const main = async () => {
-    // let response = await axios({
-    //     URL: process.env.REACT_APP_ROOMS_URL | "localhost:27017",
-
-    // })
-
     setRooms([
       { name: "Single Room", image: singleRoomImage },
       { name: "Double Room", image: doubleRoomImage },
