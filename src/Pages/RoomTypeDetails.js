@@ -26,6 +26,7 @@ export default function RoomTypeDetails(props) {
 
   // State to store the rooms returned from the api call
   const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // Get the room type from the url instead of App state because the user may directly access the room type details page
   const { roomType } = useParams();
@@ -52,11 +53,13 @@ export default function RoomTypeDetails(props) {
     // Function to get the available rooms from the api
     const getRoomsFromApi = async (roomType) => {
       try {
+        setLoading(true);
         const response = await fetch(
           `${process.env.REACT_APP_API_URL}/rooms?room_type=${roomType}`,
         );
         const rooms = await response.json();
         setRooms(rooms);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -84,7 +87,9 @@ export default function RoomTypeDetails(props) {
   return (
     <div style={{ padding: "48px" }}>
       {/* Check whether the room type is valid */}
-      {rooms.length > 0 ? (
+      {loading ? (
+        <Typography.Title level={1}>Loading...</Typography.Title>
+      ) : rooms.length > 0 ? (
         <>
           <Row gutter={48}>
             <Col span={12}>
