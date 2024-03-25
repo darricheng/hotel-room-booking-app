@@ -4,8 +4,8 @@ This app mimics the functionality of a hotel booking app — it allows users to 
 
 The app is built using the MERN stack (MongoDB, Express, React, Node.js). It was completed as part of a software engineering course. The backend repository can be found [here](https://github.com/darricheng/mern-stack-backend).
 
-- Frontend is hosted on Vercel; built using React, Ant Design, and Firebase
-- Backend is hosted on Cyclic.sh; built using Node.js, Express, mongoose, and MongoDB
+- Frontend is hosted on Vercel.
+- Backend is hosted on Cyclic.sh.
 
 [Access a working version of the app](https://hotel-room-booking-app.vercel.app/)
 
@@ -26,7 +26,6 @@ Users can:
 - [React](https://reactjs.org/)
 - [React Router](https://reactrouter.com/en/main)
 - [Ant Design](https://ant.design/)
-- [Firebase](https://firebase.google.com/)
 
 **Backend:**
 
@@ -34,9 +33,10 @@ Users can:
 - [Express](https://expressjs.com/)
 - [mongoose](https://mongoosejs.com/)
 
-**Database:**
+**Data:**
 
-- [MongoDB](https://www.mongodb.com/)
+- [MongoDB](https://www.mongodb.com/): App data
+- [Firebase](https://firebase.google.com/): Authentication
 
 ## Installation
 
@@ -64,7 +64,6 @@ Necessary environment variables are:
 
 ## Areas for Improvement
 
-- Add loading spinners while the app is fetching data from the backend
 - Add a payment method, such as Stripe, to allow users to pay for their bookings
 - Allow users to cancel their bookings
 - Add a function that runs every day to check for expired bookings and delete them from the database
