@@ -53,7 +53,7 @@ const callCreateUserAPI = async (firebaseData, userInputData) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(dataObj),
-      }
+      },
     );
     const data = await response.json();
     console.log(data);
@@ -79,7 +79,7 @@ export default function SignUpPage() {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         values.email,
-        values.password
+        values.password,
       );
       console.log(userCredential);
       // Call the createUser API endpoint to create the userCredential in the database

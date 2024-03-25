@@ -22,14 +22,14 @@ export default function ProfilePage() {
       try {
         // Fetch the user ObjectId from the database
         const userResponse = await fetch(
-          process.env.REACT_APP_API_URL + "/users/?firebase_id=" + user.uid
+          process.env.REACT_APP_API_URL + "/users/?firebase_id=" + user.uid,
         );
         const userData = await userResponse.json();
         console.log("userData", userData);
         const userObjectId = userData[0]._id;
 
         const response = await fetch(
-          process.env.REACT_APP_API_URL + "/rooms/?booked_by=" + userObjectId
+          process.env.REACT_APP_API_URL + "/rooms/?booked_by=" + userObjectId,
         );
         console.log(response);
         const data = await response.json();
@@ -67,9 +67,9 @@ export default function ProfilePage() {
                 .join(" ")
             }
             description={`${new Date(
-              booking.booked_start_date
+              booking.booked_start_date,
             ).toDateString()} - ${new Date(
-              booking.booked_end_date
+              booking.booked_end_date,
             ).toDateString()}`}
           />
         </Card>

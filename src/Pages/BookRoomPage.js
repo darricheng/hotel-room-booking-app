@@ -19,7 +19,7 @@ const callBookRoomApi = async (roomType, bookingDetails) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(bookingDetails),
-      }
+      },
     );
     console.log("response: ", response);
     return response.status;
@@ -39,7 +39,7 @@ const callCreateManyGuestsApi = async (guestDetails) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(guestDetails),
-      }
+      },
     );
     const data = await response.json();
     console.log(data);

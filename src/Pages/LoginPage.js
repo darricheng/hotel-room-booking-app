@@ -43,7 +43,7 @@ export default function LoginPage() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error(
-          `Error code: ${errorCode}, Error message: ${errorMessage}`
+          `Error code: ${errorCode}, Error message: ${errorMessage}`,
         );
       });
   };

@@ -53,7 +53,7 @@ export default function RoomTypeDetails(props) {
     const getRoomsFromApi = async (roomType) => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/rooms?room_type=${roomType}`
+          `${process.env.REACT_APP_API_URL}/rooms?room_type=${roomType}`,
         );
         const rooms = await response.json();
         setRooms(rooms);
@@ -70,7 +70,7 @@ export default function RoomTypeDetails(props) {
   // Convert roomType to camelCase for importing the relevant room description
   // e.g. single-room => singleRoom
   const roomTypeCamelCase = roomType.replace(/-([a-z])/g, (g) =>
-    g[1].toUpperCase()
+    g[1].toUpperCase(),
   );
 
   // Function to book a room

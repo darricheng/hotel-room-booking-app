@@ -111,7 +111,7 @@ function App() {
     roomType: "single-room",
   };
   const [roomSearchSetting, setRoomSearchSetting] = useState(
-    defaultRoomSearchSetting
+    defaultRoomSearchSetting,
   );
 
   // Function to handle date change by updating the date range state.
