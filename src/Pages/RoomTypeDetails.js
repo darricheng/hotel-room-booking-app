@@ -59,9 +59,10 @@ export default function RoomTypeDetails(props) {
         );
         const rooms = await response.json();
         setRooms(rooms);
-        setLoading(false);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
     getRoomsFromApi(roomType);
