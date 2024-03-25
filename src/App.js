@@ -12,8 +12,6 @@ import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
 import ProfilePage from "./Pages/ProfilePage";
-import About from "./Pages/AboutPage";
-import Contact from "./Pages/ContactPage";
 import BookRoomPage from "./Pages/BookRoomPage";
 import RoomTypeDetails from "./Pages/RoomTypeDetails";
 import RoomListingPage from "./Pages/RoomListingPage";
@@ -75,14 +73,6 @@ function App() {
     {
       label: <Link to="/rooms">Rooms</Link>,
       key: "Rooms",
-    },
-    {
-      label: <Link to="/about">About</Link>,
-      key: "About",
-    },
-    {
-      label: <Link to="/contact">Contact Us</Link>,
-      key: "Contact",
     },
     // If user is logged in, show the logout link
     ...(user
@@ -211,8 +201,6 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
               {/* Other pages */}
               <Route path="/rooms" element={<RoomListingPage />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
             </Routes>
           </div>
         </Content>
