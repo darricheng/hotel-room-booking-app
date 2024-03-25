@@ -205,7 +205,10 @@ function App() {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          <p>Copyright © 2022 Darric Heng & Sheikh Mushahid</p>
+          <p>
+            Copyright © 2022-{new Date().getFullYear()}{" "}
+            <a href="https://github.com/darricheng">Darric Heng</a>
+          </p>
           <p>All Rights Reserved</p>
         </Footer>
       </Layout>
